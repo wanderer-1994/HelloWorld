@@ -5,6 +5,7 @@ node {
     bat 'copy HelloWorld\package.json package.json'
     bat 'copy HelloWorld\package-lock.json package-lock.json'
     bat 'copy HelloWorld\script2.js script2.js'
+    bat 'rmdir /Q/S HelloWorld'
     bat 'npm install'
     bat 'node script'
 }
