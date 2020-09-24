@@ -1,0 +1,32 @@
+//Jenkinsfile
+
+/* 
+Description: API for DevOps framework demo
+Version: 1.0
+*/
+
+def extcode
+
+node {
+ 
+    git url:'git@bitbucket.org:adaptiveintegrationteam/aidevopsframework.git', branch: 'release/v3_3-ModifyCLapps' , credentialsId: 'JENKINSBB'
+    extcode = load './Build.Groovy'
+
+	echo "############ BEGIN CHECKOUT STAGE ############"
+    extcode.gitCheckout()
+
+	echo "############ BEGIN BUILD STAGE ############"
+	extcode.mavenVerify()
+	
+	echo "############ BEGIN MUNIT TESTS STAGE ############"
+	extcode.runMUnitTests()
+
+	echo "############ BEGIN DEPLOY TO ARTIFACTORY STAGE ############"
+	extcode.deployToArtifactory()
+
+	echo "############ BEGIN DEPLOY TO CLOUDHUB STAGE ############"
+	extcode.deployToCloudhub()
+	
+	echo "############ BEGIN PERFORMANCE STAGE ############"
+	extcode.runPerformanceTests()
+}
