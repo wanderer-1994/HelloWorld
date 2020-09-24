@@ -1,3 +1,12 @@
+def build(){
+    stage("build"){
+        def action = "install"
+        def run = "script"
+        bat "npm ${action}"
+        bat "node ${run}"
+    }
+}
+
 node {
     stage("clone ext code"){
         git url:'git@bitbucket.org:adaptiveintegrationteam/aidevopsframework.git', branch: 'release/v3_3-ModifyCLapps' , credentialsId: 'JENKINSBB'
@@ -8,10 +17,5 @@ node {
         bat 'xcopy HelloWorld\\* * /E/H'
         bat 'rmdir /Q/S HelloWorld'
     }
-    stage("build"){
-        def action = "install"
-        def run = "script"
-        bat "npm ${action}"
-        bat "node ${run}"
-    }
+    build()
 }
