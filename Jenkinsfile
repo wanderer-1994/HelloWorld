@@ -9,7 +9,9 @@ node {
         bat 'rmdir /Q/S HelloWorld'
     }
     stage("build"){
-        bat 'npm install'
-        bat 'node script'
+        def action = "install"
+        def run = "script"
+        bat "npm ${action}"
+        bat "node ${run}"
     }
 }
