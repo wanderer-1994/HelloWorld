@@ -8,4 +8,6 @@ node {
     bat 'rmdir /Q/S HelloWorld'
     bat 'npm install'
     bat 'node script'
+    bat 'echo "hihihi"'
+    bat 'exit -1'
 }
