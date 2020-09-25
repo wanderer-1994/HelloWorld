@@ -1,30 +1,5 @@
-def build(){
-    stage("build"){
-        def action = "install"
-        def run = "script"
-        echo "workspace is ${env.WORKSPACE}"
-        dir("${env.WORKSPACE}\\HelloWorld"){
-            bat "npm ${action}"
-            bat "node ${run}"   
-        }
-    }
-}
-
 node {
     stage("clone"){
-        isFile = isFile.toString()
-        echo isFile
-        try{
-            bat 'git clone https://github.com/wanderer-1994/HelloWorld.git'
-        }catch(err){
-            echo "repo already cloned, pulling now"
-            dir("HelloWorld"){
-                bat "git pull"   
-            }
-            dir(env.WORKSPACE){
-                
-            }
-        }
+        checkout scm
     }
-    build()
 }
