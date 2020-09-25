@@ -2,17 +2,29 @@ def build(){
     stage("build"){
         def action = "install"
         def run = "script"
-        bat "npm ${action}"
-        bat "node ${run}"
+        echo "workspace is ${env.WORKSPACE}"
+        dir("${env.WORKSPACE}\\HelloWorld"){
+            bat "npm ${action}"
+            bat "node ${run}"   
+        }
     }
 }
 
 node {
-    stage("copy"){
-        bat 'npm --version'
-        bat 'git clone https://github.com/wanderer-1994/HelloWorld.git'
-        bat 'xcopy HelloWorld\\* * /E/H'
-        bat 'rmdir /Q/S HelloWorld'
+    stage("clone"){
+        isFile = isFile.toString()
+        echo isFile
+        try{
+            bat 'git clone https://github.com/wanderer-1994/HelloWorld.git'
+        }catch(err){
+            echo "repo already cloned, pulling now"
+            dir("HelloWorld"){
+                bat "git pull"   
+            }
+            dir(env.WORKSPACE){
+                
+            }
+        }
     }
     build()
 }
